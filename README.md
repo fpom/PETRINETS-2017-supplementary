@@ -1,4 +1,4 @@
-#   Faster simulation of Petri nets using parallel computing
+#   Faster simulation of (coloured) Petri nets using parallel computing
 ### Franck Pommereau and Jordan de la Houssaye
 ### PETRI NETS 2017
 
