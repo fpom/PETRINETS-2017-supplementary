@@ -1,0 +1,38 @@
+from algoabcd import *
+
+buffer trace   : object = [Trace()]
+buffer players : object = list(Player.init())
+buffer flows   : object = ()
+
+(# state 1 => start line 7
+ [players-(self),
+  players+(self(retry=False, state="busy")),
+  trace?(t),
+  flows+(self.trans, getflows(self.trans, t.state))
+  if self.state == "call"]
+ # state 2 => finish line 7 and lines 8-10
+ + [players-(self),
+    players+(self(retry=False, state="call")),
+    flows-(trans, f)
+    if self.retry
+    and self.trans == trans]
+ # state 2 => lines 12-14
+ + [players-(self),
+    players+(self(state="idle")),
+    trace?(t),
+    flows-(trans, f)
+    if not self.retry
+    and self.trans == trans
+    and not t.filter(f)]
+ # state 2 => lines 12 and 16-25
+ + [trace<>(t=Trace(t.state - flow.sub + flow.add)),
+    flows-(trans, f),
+    players>>(P),
+    players<<(Player.fire(self, P))
+    if let(self=Player.find(trans, P))
+    and not self.retry
+    and let(flow=t.filter(f))
+    and flow])
+* [False]
+
+assert not dead()
