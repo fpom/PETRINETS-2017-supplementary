@@ -1,7 +1,6 @@
 #   Faster simulation of Petri nets using parallel computing
 ### Franck Pommereau and Jordan de la Houssaye
 ### PETRI NETS 2017
-### Supplementary material
 
 This repository contains source code and models used in the paper.
 
